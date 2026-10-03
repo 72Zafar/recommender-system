@@ -1,0 +1,9 @@
+[project]
+name = "src"
+version = "0.0.1"
+authors = [{name = "Zafar Ali", email = "zafaralikhanfs54@gmail.com"}]
+
+[tool.setuptools]
+packages = {find = {}}
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
