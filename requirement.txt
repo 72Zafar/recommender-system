@@ -10,4 +10,6 @@ httpx2>=0.1
 sentence-transformers>=3.0
 pytest>=8.0
 from_root
+seaborn
+matplotlib
 -e .
