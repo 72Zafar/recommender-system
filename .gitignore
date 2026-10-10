@@ -1,4 +1,5 @@
 # Python.gitignore
+artifacts
 logs
 demo.py
 Data
