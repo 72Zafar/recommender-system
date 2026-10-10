@@ -17,3 +17,8 @@ training_pipeline_config: TraingPipelineConfig = TraingPipelineConfig()
 class DataIngestionConfig:
     data_ingestion_dir: str = os.path.join(training_pipeline_config.artifacts_dir, DATA_INGESTION_DIR_NAME)
     collection_name: str = DATA_INGESTION_COLLECTION_NAME
+
+
+class DataTransformationConfig:
+    data_transformation_dir: str = os.path.join(training_pipeline_config.artifacts_dir, DATA_TRANSFORMATION_DIR_NAME)
+    transformed_data_dir: str = os.path.join(data_transformation_dir, DATA_TRANSFORMATION_TRANSFORMED_DIR)
