@@ -12,3 +12,8 @@ class DataIngestionArtifact:
 class DataTransformationArtifact:
     transformed_data_file_path: str
     
+@dataclass 
+class TFIDFVectorizerArtifact:
+    tfidf_vectorizer_file_path: str
+    tfidf_matrix_file_path: str
+    course_id_to_index_file_path: str

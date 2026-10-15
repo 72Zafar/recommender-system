@@ -4,13 +4,15 @@ from src.logger import logging
 
 from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
-from src.entity.config_entity import  DataIngestionConfig,DataTransformationConfig
-from src.entity.artifact_entity import DataIngestionArtifact,DataTransformationArtifact
-
+from src.entity.config_entity import  DataIngestionConfig,DataTransformationConfig,TFIDFVectorizerConfig
+from src.entity.artifact_entity import DataIngestionArtifact,DataTransformationArtifact,TFIDFVectorizerArtifact
+from src.components.tfidf import TfidfRecommende
 class TrainingPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_transformation_config = DataTransformationConfig()
+        self.data_transformation_config = DataTransformationConfig()
+
 
     def start_data_ingestion(self) -> DataIngestionArtifact:
         try:
@@ -27,6 +29,14 @@ class TrainingPipeline:
             return data_transformation.initiate_data_transformation()
         except Exception as e:
             raise CustomException(e, sys)
+
+    def start_tfidf_vectorizer(self, data_transformation_artifact: DataTransformationArtifact) -> TFIDFVectorizerArtifact:
+        try:
+            logging.info("Starting TF-IDF vectorization")
+            tfidf_vectorizer = TfidfRecommende()
+            return tfidf_vectorizer.initiate_tfidf_vectorization(data_transformation_artifact=data_transformation_artifact)
+        except Exception as e:
+            raise CustomException(e, sys)
         
 
     def run_pipeline(self):
@@ -38,6 +48,8 @@ class TrainingPipeline:
             logging.info(f"Data ingestion artifact: {data_ingestion_artifact}")
             data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact)
             logging.info(f"Data transformation artifact: {data_transformation_artifact}")
+            tfidf_vectorizer_artifact = self.start_tfidf_vectorizer(data_transformation_artifact=data_transformation_artifact)
+            logging.info(f"TF-IDF vectorizer artifact: {tfidf_vectorizer_artifact}")
         except Exception as e:
             raise CustomException(e, sys)
     

@@ -65,3 +65,13 @@ Data Transformation related constant start with DATA_TRANSFORMATION VAR NAME
 
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
 DATA_TRANSFORMATION_TRANSFORMED_DIR: str = "transformed"
+
+
+"""
+Tfidf Vectorizer related constant start with TFIDF VAR NAME
+"""
+
+TFIDF_DIR_NAME: str = "tfidf_vectorizer"
+TFIDF_OBJECT_FILE_NAME: str = "tfidf_vectorizer.pkl"
+TFIDF_MATRIX_FILE_NAME: str = "tfidf_matrix.npz"
+TFIDF_CI_INDEX_FILE_NAME: str = "course_id_to_index.pkl"
