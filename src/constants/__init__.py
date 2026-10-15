@@ -75,3 +75,10 @@ TFIDF_DIR_NAME: str = "tfidf_vectorizer"
 TFIDF_OBJECT_FILE_NAME: str = "tfidf_vectorizer.pkl"
 TFIDF_MATRIX_FILE_NAME: str = "tfidf_matrix.npz"
 TFIDF_CI_INDEX_FILE_NAME: str = "course_id_to_index.pkl"
+
+"""
+Semantic embedding related constant start with SEMANTIC_EMBEDDING VAR NAME
+"""
+EMBEDDING_DIR_NAME: str = "semantic_embeddings"
+COURSE_EMBEDDING_FILE_NAME = "course_embeddings.npy"
+MODEL_NAME_TEXT = "model_name.txt"

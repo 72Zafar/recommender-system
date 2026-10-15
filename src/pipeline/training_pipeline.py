@@ -4,12 +4,14 @@ from src.logger import logging
 
 from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
-from src.entity.config_entity import  DataIngestionConfig,DataTransformationConfig,TFIDFVectorizerConfig
-from src.entity.artifact_entity import DataIngestionArtifact,DataTransformationArtifact,TFIDFVectorizerArtifact
+from src.entity.config_entity import DataIngestionConfig, DataTransformationConfig
+from src.entity.artifact_entity import DataIngestionArtifact,DataTransformationArtifact,TFIDFVectorizerArtifact,SemanticEmbeddingArtifact
 from src.components.tfidf import TfidfRecommende
+from src.components.Semantic_E_Recomm import SemanticEmbeddingRecommender
 class TrainingPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
+        self.data_transformation_config = DataTransformationConfig()
         self.data_transformation_config = DataTransformationConfig()
         self.data_transformation_config = DataTransformationConfig()
 
@@ -37,6 +39,16 @@ class TrainingPipeline:
             return tfidf_vectorizer.initiate_tfidf_vectorization(data_transformation_artifact=data_transformation_artifact)
         except Exception as e:
             raise CustomException(e, sys)
+
+    def start_semantic_embedding(self, data_transformation_artifact: DataTransformationArtifact) -> SemanticEmbeddingArtifact:
+        try:
+            logging.info("Starting semantic embedding")
+            semantic_embedding = SemanticEmbeddingRecommender()
+            return semantic_embedding.initiate_semantic_embedding(
+                data_transformation_artifact=data_transformation_artifact
+            )
+        except Exception as e:
+            raise CustomException(e, sys)
         
 
     def run_pipeline(self):
@@ -50,6 +62,8 @@ class TrainingPipeline:
             logging.info(f"Data transformation artifact: {data_transformation_artifact}")
             tfidf_vectorizer_artifact = self.start_tfidf_vectorizer(data_transformation_artifact=data_transformation_artifact)
             logging.info(f"TF-IDF vectorizer artifact: {tfidf_vectorizer_artifact}")
+            semantic_embedding_artifact = self.start_semantic_embedding(data_transformation_artifact=data_transformation_artifact)
+            logging.info(f"Semantic embedding artifact: {semantic_embedding_artifact}")
         except Exception as e:
             raise CustomException(e, sys)
     

@@ -29,3 +29,9 @@ class TFIDFVectorizerConfig:
     tfidf_vectorizer_file_path: str = os.path.join(tfidf_vectorizer_dir, TFIDF_OBJECT_FILE_NAME)
     tfidf_matrix_file_path: str = os.path.join(tfidf_vectorizer_dir, TFIDF_MATRIX_FILE_NAME)
     course_id_to_index_file_path: str = os.path.join(tfidf_vectorizer_dir, TFIDF_CI_INDEX_FILE_NAME)
+
+
+class SemanticEmbeddingConfig:
+    embedding_dir: str = os.path.join(training_pipeline_config.artifacts_dir, EMBEDDING_DIR_NAME)
+    embedding_file_path: str = os.path.join(embedding_dir, COURSE_EMBEDDING_FILE_NAME)
+    model_name_file_path: str = os.path.join(embedding_dir, MODEL_NAME_TEXT)
