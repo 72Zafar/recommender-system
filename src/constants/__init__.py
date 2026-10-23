@@ -82,3 +82,9 @@ Semantic embedding related constant start with SEMANTIC_EMBEDDING VAR NAME
 EMBEDDING_DIR_NAME: str = "semantic_embeddings"
 COURSE_EMBEDDING_FILE_NAME = "course_embeddings.npy"
 MODEL_NAME_TEXT = "model_name.txt"
+
+"""
+HYBIRD FUNCTION related constant start with HYBIRD VAR NAME
+"""
+HYBIRD_DIR_NAME: str = "models"
+HYBIRD_MODEL_NAME: str = "coures.pkl"

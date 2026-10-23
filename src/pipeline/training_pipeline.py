@@ -4,16 +4,28 @@ from src.logger import logging
 
 from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
-from src.entity.config_entity import DataIngestionConfig, DataTransformationConfig
-from src.entity.artifact_entity import DataIngestionArtifact,DataTransformationArtifact,TFIDFVectorizerArtifact,SemanticEmbeddingArtifact
+from src.entity.config_entity import (
+    DataIngestionConfig,
+    DataTransformationConfig,
+    Hybird_function_Config,
+)
+from src.entity.artifact_entity import (
+    DataIngestionArtifact,
+    DataTransformationArtifact,
+    TFIDFVectorizerArtifact,
+    SemanticEmbeddingArtifact,
+    Hybird_function_Artifact,
+)
 from src.components.tfidf import TfidfRecommende
 from src.components.Semantic_E_Recomm import SemanticEmbeddingRecommender
+from src.components.hybird_function import HybirdRecommender
+
+
 class TrainingPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_transformation_config = DataTransformationConfig()
-        self.data_transformation_config = DataTransformationConfig()
-        self.data_transformation_config = DataTransformationConfig()
+        self.hybird_function_config = Hybird_function_Config()
 
 
     def start_data_ingestion(self) -> DataIngestionArtifact:
@@ -49,7 +61,27 @@ class TrainingPipeline:
             )
         except Exception as e:
             raise CustomException(e, sys)
-        
+
+    def start_hybird_recommender(
+        self,
+        data_transformation_artifact: DataTransformationArtifact,
+        tfidf_vectorizer_artifact: TFIDFVectorizerArtifact,
+        semantic_embedding_artifact: SemanticEmbeddingArtifact,
+    ) -> Hybird_function_Artifact:
+        try:
+            logging.info("Starting hybrid recommender")
+            hybrid_recommender = HybirdRecommender(
+                config=self.hybird_function_config,
+                tfidf_artifact=tfidf_vectorizer_artifact,
+                semantic_artifact=semantic_embedding_artifact,
+            )
+            logging.info(
+                "Hybrid recommender initialized for transformed data at %s",
+                data_transformation_artifact.transformed_data_file_path,
+            )
+            return hybrid_recommender.save()
+        except Exception as e:
+            raise CustomException(e, sys)
 
     def run_pipeline(self):
         """
@@ -64,6 +96,13 @@ class TrainingPipeline:
             logging.info(f"TF-IDF vectorizer artifact: {tfidf_vectorizer_artifact}")
             semantic_embedding_artifact = self.start_semantic_embedding(data_transformation_artifact=data_transformation_artifact)
             logging.info(f"Semantic embedding artifact: {semantic_embedding_artifact}")
+            hybird_function_artifact = self.start_hybird_recommender(
+                data_transformation_artifact=data_transformation_artifact,
+                tfidf_vectorizer_artifact=tfidf_vectorizer_artifact,
+                semantic_embedding_artifact=semantic_embedding_artifact,
+            )
+            logging.info(f"Hybrid recommender artifact: {hybird_function_artifact}")
+            return hybird_function_artifact
         except Exception as e:
             raise CustomException(e, sys)
     

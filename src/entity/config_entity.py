@@ -35,3 +35,7 @@ class SemanticEmbeddingConfig:
     embedding_dir: str = os.path.join(training_pipeline_config.artifacts_dir, EMBEDDING_DIR_NAME)
     embedding_file_path: str = os.path.join(embedding_dir, COURSE_EMBEDDING_FILE_NAME)
     model_name_file_path: str = os.path.join(embedding_dir, MODEL_NAME_TEXT)
+
+class Hybird_function_Config:
+    hybird_model_dir: str = os.path.join(training_pipeline_config.artifacts_dir, HYBIRD_DIR_NAME)
+    hybird_model_file_path: str = os.path.join(hybird_model_dir, HYBIRD_MODEL_NAME)

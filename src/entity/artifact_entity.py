@@ -22,3 +22,7 @@ class TFIDFVectorizerArtifact:
 class SemanticEmbeddingArtifact:
     embedding_file_path: str
     model_name_file_path: str   
+
+@dataclass
+class Hybird_function_Artifact:
+    hybird_model_file_path: str
